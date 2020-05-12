@@ -1,0 +1,65 @@
+def win():
+    if (game_plot[0][2] == "X" and game_plot[1][2] == "X" and game_plot[2][2] == "X") \
+    or (game_plot[0][1] == "X" and game_plot[1][1] == "X" and game_plot[2][1] == "X") \
+    or (game_plot[0][0] == "X" and game_plot[1][0] == "X" and game_plot[2][0] == "X") \
+    or (game_plot[0][2] == "X" and game_plot[0][1] == "X" and game_plot[0][0] == "X") \
+    or (game_plot[1][2] == "X" and game_plot[1][1] == "X" and game_plot[1][0] == "X") \
+    or (game_plot[2][2] == "X" and game_plot[2][1] == "X" and game_plot[2][0] == "X") \
+    or (game_plot[0][2] == "X" and game_plot[1][1] == "X" and game_plot[2][0] == "X") \
+    or (game_plot[0][0] == "X" and game_plot[1][1] == "X" and game_plot[2][2] == "X"):
+        print("X wins")
+        return True
+    elif (game_plot[0][2] == "O" and game_plot[1][2] == "O" and game_plot[2][2] == "O") \
+    or (game_plot[0][1] == "O" and game_plot[1][1] == "O" and game_plot[2][1] == "O") \
+    or (game_plot[0][0] == "O" and game_plot[1][0] == "O" and game_plot[2][0] == "O") \
+    or (game_plot[0][2] == "O" and game_plot[0][1] == "O" and game_plot[0][0] == "O") \
+    or (game_plot[1][2] == "O" and game_plot[1][1] == "O" and game_plot[1][0] == "O") \
+    or (game_plot[2][2] == "O" and game_plot[2][1] == "O" and game_plot[2][0] == "O") \
+    or (game_plot[0][2] == "O" and game_plot[1][1] == "O" and game_plot[2][0] == "O") \
+    or (game_plot[0][0] == "O" and game_plot[1][1] == "O" and game_plot[2][2] == "O"):
+        print("O wins")
+        return True
+
+
+def print_game_plot():
+    print("---------")
+    print(f"| {game_plot[0][2]} {game_plot[1][2]} {game_plot[2][2]} |")
+    print(f"| {game_plot[0][1]} {game_plot[1][1]} {game_plot[2][1]} |")
+    print(f"| {game_plot[0][0]} {game_plot[1][0]} {game_plot[2][0]} |")
+    print("---------")
+
+
+def empty_game_plot():
+    print("---------")
+    print("|       |")
+    print("|       |")
+    print("|       |")
+    print("---------")
+
+
+# main programme:
+empty_game_plot()
+game_plot = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]
+
+counter = 0
+while counter < 9:
+    coordinates = input("Enter the coordinates: > ").split()
+    if len(coordinates) == 2 and coordinates[0].isdecimal() and coordinates[1].isdecimal():
+        if (0 < int(coordinates[0]) < 4) and (0 < int(coordinates[1]) < 4):
+            if game_plot[int(coordinates[0]) - 1][int(coordinates[1]) - 1] == "X" or game_plot[int(coordinates[0]) - 1][int(coordinates[1]) - 1] == "O":
+                print("This cell is occupied! Choose another one!")
+            else:
+                if counter % 2 == 0:
+                    game_plot[int(coordinates[0]) - 1][int(coordinates[1]) - 1] = "X"
+                else:
+                    game_plot[int(coordinates[0]) - 1][int(coordinates[1]) - 1] = "O"
+                print_game_plot()
+                counter += 1
+                if win():
+                    break
+        else:
+            print("Coordinates should be from 1 to 3!")
+    else:
+        print("You should enter numbers!")
+
+    print("Draw")
